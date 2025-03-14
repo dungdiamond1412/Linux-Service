@@ -119,3 +119,11 @@ vi lab01.sh
 ```
 vi lab02.sh
 ```
+    #!/bin/bash
+    a=30
+    b=20
+    sum=$((a+b))
+    echo "A+B=$sum"
+```
+./lab02.sh
+```
