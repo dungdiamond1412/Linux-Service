@@ -105,17 +105,17 @@ c. Ví dụ thực tế
 #### 1. Lệnh `tty`
 - Lệnh `tty` trong Linux được sử dụng để hiển thị terminal hiện tại của người dùng.
     - Cú pháp: 
-    ```
+    ```bash
     tty
     ```
     - Ví dụ:
-    ```
+    ```bash
     $ tty
     /dev/pts/0
     ```
 - Kết quả cho thấy người dùng đang sử dụng pseudo-terminal (/dev/pts/0), tức là một phiên SSH hoặc terminal giả lập trong môi trường đồ họa.
 - Nếu bạn đang làm việc trực tiếp trên máy, nó có thể hiển thị như:
-    ```
+    ```bash
     /dev/tty1
     ```
 - Điều này có nghĩa là bạn đang ở chế độ console vật lý .
@@ -129,11 +129,11 @@ c. Ví dụ thực tế
         - Ví dụ: `/dev/pts/0`, `/dev/pts/1`.
 #### 3. Liệt kê các phiên `tty` đang hoạt động
 - Bạn có thể dùng lệnh sau để xem danh sách các phiên `tty` đang chạy:
-    ```
+    ```bash
     who
     ```
 - Ví dụ:
-    ```
+    ```bash
     $ who
     user     pts/0        2025-03-03 12:30 (192.168.1.10)
     user     pts/1        2025-03-03 12:35 (:0)
@@ -143,48 +143,48 @@ c. Ví dụ thực tế
     - `pts/1`: một terminal GUI.
 #### 4. Chạy lệnh trên một `tty` cụ thể
 - Bạn có thể gửi lệnh đến một tty khác bằng cách sử dụng echo và >/dev/ttyX:
-    ```
+    ```bash
     echo "Hello, tty1!" > /dev/pts/1
     ```
 - Lệnh này gửi chuỗi `"Hello, tty1!"` đến phiên `tty1`.
 #### 5. Mở một `tty` mới
 - Để mở một terminal mới, bạn có thể dùng:
-    ```
+    ```bash
     ctrl + alt + F1 (hoặc F2, F3,...)
     ```
 - Để quay lại GUI:
-    ```
+    ```bash
     ctrl + alt + F7 (hoặc F8)
     ```
 - Hoặc nếu bạn đang ở trong một terminal và muốn mở một shell mới trên tty khác:
-    ```
+    ```bash
     chvt 2  ## Chuyển sang tty2
     ```
 #### 6. Đặt chế độ terminal với `stty`
 - Lệnh stty cho phép kiểm soát cài đặt tty. Ví dụ:
-    ```
+    ```bash
     stty -a  ## Hiển thị cấu hình terminal
     stty sane  ## Khôi phục terminal về trạng thái bình thường
     ```
 #### 7. Tắt đầu vào trên một `tty` cụ thể
 - Bạn có thể vô hiệu hóa đầu vào của một `tty` bằng cách:
-    ```
+    ```bash
     stty -F /dev/tty2 -echo
     ```
 - Lệnh này tắt đầu vào của tty2.
 - Để bật lại:
-    ```
+    ```bash
     stty -F /dev/tty2 echo
     ```
 #### 8. Thoát `tty` hoặc đăng xuất
 - Để đăng xuất khỏi một phiên tty, bạn có thể dùng:
-    ```
+    ```bash
     exit
     hoặc
     logout
     ```
 - Nếu muốn đóng phiên `tty` từ xa:
-    ```
+    ```bash
     pkill -KILL -t pts/1
     ```
 Lệnh này sẽ buộc phiên pts/1 thoát.
@@ -225,22 +225,22 @@ Lệnh này sẽ buộc phiên pts/1 thoát.
 
 #### 3. Quản lý Crontab
 ##### 3.1. Kiểm tra Crontab hiện tại
-```
+```bash
 crontab -l
 ```
 *(Xem danh sách cron jobs của người dùng hiện tại)*
 ##### 3.2. Chỉnh sửa Crontab
-```
+```bash
 crontab -e
 ```
 *(Mở trình soạn thảo để thêm/sửa cron jobs)*
 ##### 3.3. Xóa Crontab
-```
+```bash
 crontab -r
 ```
 *(Xóa toàn bộ cron jobs của người dùng hiện tại)*
 ##### 3.4. Chỉnh sửa Crontab cho người dùng khác (chỉ dành cho root)
-```
+```bash
 crontab -u username -e
 ```
 
@@ -268,20 +268,20 @@ Ví dụ:
 
 #### 6. Lưu ý khi sử dụng Crontab
 - Đường dẫn tuyệt đối: Khi chạy script, nên sử dụng đường dẫn đầy đủ, ví dụ:
-    ```
+    ```bash
     /usr/bin/php /home/user/script.php
     ```
 - Kiểm tra log khi cron không chạy:
     - Log cron có thể nằm trong /var/log/cron (trên CentOS/AlmaLinux) hoặc /var/log/syslog (trên Ubuntu/Debian):
-        ```
+        ```bash
         tail -f /var/log/cron
         ```
     - Hoặc ghi log khi chạy:
-        ```
+        ```bash
         0 5 * * * /path/to/script.sh >> /var/log/myscript.log 2>&1
         ```
 - Kiểm tra trạng thái cron daemon:
-    ```
+    ```bash
     systemctl status crond  ## CentOS/AlmaLinux
     systemctl status cron    ## Ubuntu/Debian
     ```
