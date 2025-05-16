@@ -119,3 +119,35 @@
 | `-R`                    | Reverse test (client nhận, server gửi)          |
 | `-f <format>`           | Đơn vị hiển thị (`k`, `m`, `g`)                 |
 | `-i <seconds>`          | Hiển thị kết quả mỗi X giây                     |
+
+### 4. So sách 4 công cụ trên
+- So sánh tổng quan
+
+| Tiêu chí               | `netstat`                     | `ss`                                 | `nuttcp`                     | `iperf3`                              |
+| ---------------------- | ----------------------------- | ------------------------------------ | ---------------------------- | ------------------------------------- |
+| **Chức năng chính**    | Hiển thị kết nối mạng, socket | Tương tự netstat nhưng nhanh hơn     | Đo hiệu suất truyền tải mạng | Đo băng thông, hiệu suất mạng TCP/UDP |
+| **Giao thức hỗ trợ**   | TCP, UDP                      | TCP, UDP                             | TCP, UDP                     | TCP, UDP, SCTP                        |
+| **Tốc độ xử lý**       | Chậm hơn                      | Nhanh, hiệu quả hơn                  | Nhanh                        | Tốt, chi tiết                         |
+| **Chi tiết thống kê**  | Trung bình                    | Chi tiết, hiện đại hơn netstat       | Có thể tùy chỉnh chi tiết    | Rất chi tiết (latency, jitter...)     |
+| **Hỗ trợ song song**   | Không                         | Không                                | Có                           | Có                                    |
+| **Hỗ trợ JSON**        | Không                         | Có (tùy distro)                      | Không                        | Có                                    |
+| **Cài đặt thêm**       | Mặc định trong nhiều hệ thống | Mặc định trong nhiều hệ thống        | Cần cài thêm                 | Cần cài thêm                          |
+| **Tình huống phù hợp** | Kiểm tra nhanh kết nối, cổng  | Kiểm tra chi tiết socket, trạng thái | Đo tốc độ mạng đơn giản      | Đo hiệu suất mạng chuyên sâu          |
+
+- Chi tiết từng công cụ
+    - **netstat**
+        - **Ưu điểm**: Có mặt trong nhiều hệ thống cũ; dễ sử dụng.
+        - **Nhược điểm**: Lỗi thời, không hỗ trợ các tính năng hiện đại.
+        - **Sử dụng khi**: Kiểm tra nhanh các kết nối mở, cổng đang dùng, routing table.
+    - **ss**
+        - **Ưu điểm**: Nhanh hơn netstat, hiển thị chi tiết socket TCP/UDP.
+        - **Nhược điểm**: Cú pháp có thể phức tạp hơn nếu không quen.
+        - **Sử dụng khi**: Cần xem thông tin socket, kết nối mạng với độ chi tiết cao.
+    - **nuttcp**
+        - **Ưu điểm**: Đo tốc độ mạng hiệu quả, hỗ trợ đo throughput giữa client-server.
+        - **Nhược điểm**: Cần cài đặt cả 2 phía; không phổ biến như iperf.
+        - **Sử dụng khi**: Kiểm tra hiệu suất mạng đơn giản giữa hai máy.
+    - **iperf3**
+        - **Ưu điểm**: Đo tốc độ truyền tải TCP/UDP rất chi tiết; hỗ trợ song song, JSON, tuỳ chỉnh gói tin.
+        - **Nhược điểm**: Cần cài đặt riêng; có thể phức tạp với người mới.
+        - **Sử dụng khi**: Cần benchmark mạng giữa hai máy một cách chuyên nghiệp.
