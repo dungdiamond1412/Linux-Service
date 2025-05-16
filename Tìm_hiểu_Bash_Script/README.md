@@ -300,4 +300,49 @@ vi install.sh
 ```
 ### 3. Tìm hiểu ý nghĩa #! trong bash shell, các cách  thực thi một file script
 - Ý nghĩa của #! trong Bash Shell (Shebang)
-Dòng #! (gọi là shebang) đứng ở dòng đầu tiên của một file script (ví dụ: Bash, Python, Perl, v.v.), có ý nghĩa khai báo trình thông dịch (interpreter) sẽ được sử dụng để thực thi script đó.
+    - Dòng #! (gọi là shebang) đứng ở dòng đầu tiên của một file script (ví dụ: Bash, Python, Perl, v.v.), có ý nghĩa khai báo trình thông dịch (interpreter) sẽ được sử dụng để thực thi script đó.
+        - Cú pháp:
+        ```bash
+        #!/đường/dẫn/đến/trình/thông-dịch
+        ```
+        - Ví dụ:
+        ```bash
+
+        #!/bin/sh
+        #!/usr/bin/env python3
+        #!/bin/bash
+        ...
+        ```
+- Các cách thực thi một file script trong Bash
+    - Giả sử bạn có một file tên là myscript.sh.
+        - Cách 1: Thêm quyền thực thi và chạy trực tiếp
+        ```bash
+        chmod +x myscript.sh   # Cấp quyền thực thi
+        ./myscript.sh          # Thực thi
+        ```
+        Lúc này hệ thống sẽ đọc shebang để biết dùng trình thông dịch nào.
+
+        - Cách 2: Gọi thủ công trình thông dịch
+        ```bash
+        bash myscript.sh
+        ```
+        Bỏ qua shebang, bạn chỉ định rõ sẽ dùng bash để chạy script.
+
+        - Cách 3: Sử dụng `source` hoặc dấu chấm `.`
+        ```bash
+        source myscript.sh
+        # hoặc
+        . myscript.sh
+        ```
+        Script sẽ được chạy trong shell hiện tại, không sinh ra một shell mới.
+
+        Lưu ý: Dùng khi bạn muốn các biến được khai báo trong script có hiệu lực trong shell hiện tại (ví dụ: đặt biến môi trường).
+
+    - Tổng kết
+    
+    | Cách thực thi          | Sinh shell mới? | Đọc shebang? | Ghi chú                                |
+    |------------------------|------------------|---------------|----------------------------------------|
+    | `./myscript.sh`        | Có               | Có            | Phổ biến, cần `chmod +x`               |
+    | `bash myscript.sh`     | Có               | Không            | Bỏ qua shebang, gọi trực tiếp Bash     |
+    | `source myscript.sh`   | Không               | Không            | Chạy trong shell hiện tại, giữ biến    |
+    | `. myscript.sh`        | Không               | Không            | Giống `source`, viết tắt                |
