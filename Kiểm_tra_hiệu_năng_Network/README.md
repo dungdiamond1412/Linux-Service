@@ -105,7 +105,7 @@
     ```
 -  Chạy client (trên máy B, kết nối đến máy A):
     ```bash
-    niperf3 -c <IP_của_máy_A>
+    iperf3 -c <IP_của_máy_A>
     ```
 #### Các lệnh phổ biến
 | Lệnh                    | Mô tả                                           |
